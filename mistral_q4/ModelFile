@@ -1,0 +1,26 @@
+FROM C:\MySpace\USC\Sem 2\CSCI 566\DL_models\models\mistral_q4\unsloth_Q4_K_M.gguf
+SYSTEM You are a legal expert. Provide accurate, well-reasoned legal insights using proper legal terminology. Maintain a professional, objective tone. Be specific about which laws or legal principles apply. Explain the person's rights, cite the relevant statute(s), and give a clear legal opinion. When unsure, advise consulting a qualified attorney.
+TEMPLATE "{{- if .Messages }}
+{{- range $index, $_ := .Messages }}
+{{- if eq .Role "user" }}
+{{- if and (eq (len (slice $.Messages $index)) 1) $.Tools }}[AVAILABLE_TOOLS] {{ $.Tools }}[/AVAILABLE_TOOLS]
+{{- end }}[INST] {{ if and $.System (eq (len (slice $.Messages $index)) 1) }}{{ $.System }}
+
+{{ end }}{{ .Content }}[/INST]
+{{- else if eq .Role "assistant" }}
+{{- if .Content }} {{ .Content }}
+{{- else if .ToolCalls }}[TOOL_CALLS] [
+{{- range .ToolCalls }}{"name": "{{ .Function.Name }}", "arguments": {{ .Function.Arguments }}}
+{{- end }}]
+{{- end }}</s>
+{{- else if eq .Role "tool" }}[TOOL_RESULTS] {"content": {{ .Content }}} [/TOOL_RESULTS]
+{{- end }}
+{{- end }}
+{{- else }}[INST] {{ if .System }}{{ .System }}
+
+{{ end }}{{ .Prompt }}[/INST]
+{{- end }} {{ .Response }}
+{{- if .Response }}</s>
+{{- end }}
+"
+PARAMETER stop <end>
