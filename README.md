@@ -1,7 +1,7 @@
 # Counsel-Ai
 Legal Question Answering (LQA) system tailored for law
 ## Project Overview
-
+Demo - https://huggingface.co/spaces/Kulankur/Counsel-Ai
 This project proposes the development of a Legal Question Answering (LQA) system tailored for law. The system will leverage a fine-tuned Large Language Model (LLM) trained on case law and statutory texts, ensuring accurate legal responses. A key feature of the system is citation verification, enhancing reliability by referencing relevant legal sources. The intended beneficiaries include paralegals, legal researchers, judges and non-lawyers seeking legal interpretability and case law research. The project aims to bridge the gap between complex legal documents and practical accessibility.
 
 Dataset Description
